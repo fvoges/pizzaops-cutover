@@ -10,6 +10,9 @@
 class cutover (
   $ssldir = $::cutover::params::ssldir,
   $puppet_conf = $::cutover::params::puppet_conf,
+  $environment = undef,
+  $environment_section = 'main',
+  $manage_environment = false,
   $manage_server = false,
   $manage_ca_server = false,
   $server = nil,
@@ -42,6 +45,14 @@ class cutover (
         ca_server         => $ca_server,
         ca_server_section => $ca_server_section,
         before            => Class['cutover::ssldir'],
+      }
+    }
+
+    if $manage_environment == true { class { 'cutover::environment':
+        puppet_conf         => $puppet_conf,
+        environment         => $environment,
+        environment_section => $environment_section,
+        before              => Class['cutover::ssldir'],
       }
     }
 

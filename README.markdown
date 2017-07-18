@@ -32,14 +32,16 @@ The above will change the agent's `server` paramter from whatever it currently, 
 
 ```puppet
 class { 'cutover':
-  manage_server     => true,
-  server            => 'newmaster.puppetlabs.com',
-  server_section    => 'main'
-  manage_ca_server  => true,
-  ca_server         => 'newcaserver.puppetlabs.com',
-  ca_server_section => 'agent',
-  ssldir            => '/weird/unusual/ssldir/location',
-  puppet_conf       => '/werd/unusual/location/for/puppet.conf',
+  manage_server       => true,
+  server              => 'newmaster.puppetlabs.com',
+  server_section      => 'main'
+  manage_ca_server    => true,
+  ca_server           => 'newcaserver.puppetlabs.com',
+  ca_server_section   => 'agent',
+  ssldir              => '/weird/unusual/ssldir/location',
+  puppet_conf         => '/werd/unusual/location/for/puppet.conf',
+  environment         => 'migration',
+  environment_section => 'agent',
 }
 ```
 
@@ -49,6 +51,7 @@ The above will:
  * Make the `ca_server` parameter of the `agent` section of `puppet.conf` `newcaserver.puppetlabs.com`
  * Assume the `ssldir` is `/weird/unusual/ssldir/location` and remove it.
  * Assume that `puppet.conf` is located at `/werd/unusual/location/for/puppet.conf`, and make changes to the values in those files as per the above.
+ * Make the `environment` parameter in the `main` section of `puppet.conf` `migration`.
 
 ## Additional Details
 
